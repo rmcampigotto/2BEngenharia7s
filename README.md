@@ -14,7 +14,6 @@ Fornecer uma API genérica, poderosa e 100% personalizável que abstrai as princ
 - Criação e evolução de personagens
 - Gerenciamento de itens e inventário
 - Sistema de raças e classes dinâmicas
-- Sessões de jogo e controle de campanhas
 - Armazenamento de logs e auditorias
 - Total liberdade de modelagem para o desenvolvedor
 
