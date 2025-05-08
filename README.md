@@ -46,7 +46,7 @@ Fornecer uma API genérica, poderosa e 100% personalizável que abstrai as princ
   "name": "Iron Sword",
   "type": "Weapon",
   "rarity": "Common",
-  "effects": { "STR": +5 },
+  "effects": { "STR": 5 },
 }
 ```
 
@@ -58,15 +58,11 @@ Fornecer uma API genérica, poderosa e 100% personalizável que abstrai as princ
 {
   "name": "Forest Elf",
   "description": "Exemple of a background story for this race",
-  "baseAttributes": { "DEX": +3, "STR": -1 },
+  "baseAttributes": { "DEX": 3, "STR": -1 },
   "bonuses": [
     {
       "condition": { "class": "Archer" },
-      "effects": [
-        { "DEX": +1 },
-        { "LCK": +1 },
-        { "STL": +2 }
-      ]
+      "effects": { "DEX": 1, "LCK": 1 , "STL": 2 }
     }
   ]
 }
@@ -79,12 +75,12 @@ Fornecer uma API genérica, poderosa e 100% personalizável que abstrai as princ
 ```json
 {
   "name": "Archer",
-  "baseAttributes": { "DEX": +4, "STR": +1 },
+  "baseAttributes": { "DEX": 4, "STR": 1 },
   "abilities": [
     {
       "name": "Piercing Shot",
       "description": "Deals extra damage that ignores armor.",
-      "cooldown": 2, // Segundos
+      "cooldown": 2,
       "cost": { "Stamina": 2 }
     }
   ]
