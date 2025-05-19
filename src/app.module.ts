@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { MongooseModule } from '@nestjs/mongoose';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -9,7 +10,6 @@ import { MongooseModule } from '@nestjs/mongoose';
        isGlobal: true,
        envFilePath: '.env',
     }),
-
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
@@ -45,6 +45,7 @@ import { MongooseModule } from '@nestjs/mongoose';
         };
       },
     }),
+    UsersModule,
   ],
   controllers: [],
   providers: [],
