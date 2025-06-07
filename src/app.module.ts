@@ -7,8 +7,8 @@ import { UsersModule } from './users/users.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
-       isGlobal: true,
-       envFilePath: '.env',
+      isGlobal: true,
+      envFilePath: '.env',
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
@@ -18,7 +18,7 @@ import { UsersModule } from './users/users.module';
         if (!isProduction) {
           console.warn('[!] TypeORM está com synchronize: true (modo dev)');
         }
-    
+
         return {
           type: 'postgres',
           host: config.get('POSTGRES_HOST'),
@@ -32,18 +32,10 @@ import { UsersModule } from './users/users.module';
       },
     }),
     MongooseModule.forRootAsync({
-      imports: [ConfigModule],
+      useFactory: (config: ConfigService) => ({
+        uri: `mongodb://${config.get('MONGO_USER')}:${config.get('MONGO_PASSWORD')}@${config.get('MONGO_HOST')}:${config.get('MONGO_PORT')}/${config.get('MONGO_DB')}?authSource=admin`,
+      }),
       inject: [ConfigService],
-      useFactory: (config: ConfigService) => {
-        const user = config.get('MONGO_USER');
-        const pass = config.get('MONGO_PASSWORD');
-        const host = config.get('MONGO_HOST');
-        const port = config.get('MONGO_PORT');
-        const db = config.get('MONGO_DB');
-        return {
-          uri: `mongodb://${user}:${pass}@${host}:${port}/${db}`,
-        };
-      },
     }),
     UsersModule,
   ],

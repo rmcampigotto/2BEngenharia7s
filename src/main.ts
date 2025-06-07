@@ -1,3 +1,4 @@
+import './reflect-fix';
 import { NestFactory } from '@nestjs/core/nest-factory';
 import { AppModule } from './app.module';
 
