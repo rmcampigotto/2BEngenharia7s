@@ -1,137 +1,117 @@
+# ✅ ToDo List API
 
-# 🧙‍♂️ RPG Core API
-
-A **RPG Core API** é uma API modular, extensível e personalizável criada para facilitar o desenvolvimento de jogos de RPG. Seu objetivo é fornecer um backend robusto com funcionalidades essenciais como personagens, raças, classes, inventário e habilidades, permitindo que estúdios/dev indies foquem na experiência de jogo sem se preocupar com a infraestrutura básica.
-
-Esta API será oferecida como produto B2B para desenvolvedores de jogos, integrando diretamente com sistemas externos sem acoplamento a regras ou ambientações específicas, tudo por uma única URL.
+A **ToDo List API** é uma aplicação RESTful desenvolvida com NestJS que permite o gerenciamento de tarefas pessoais e organizacionais. Ideal para integrar com front-ends web ou mobile, a API oferece recursos robustos como autenticação JWT, prioridade de tarefas, controle de status e categorias customizáveis.
 
 ---
 
 ## 🎯 Objetivo
 
-Fornecer uma API genérica, poderosa e 100% personalizável que abstrai as principais funcionalidades de sistemas de RPG:
+Fornecer uma API simples, modular e escalável que permita:
 
-- Criação e evolução de personagens
-- Gerenciamento de itens e inventário
-- Sistema de raças e classes dinâmicas
-- Armazenamento de logs e auditorias
-- Total liberdade de modelagem para o desenvolvedor
+- Criar, listar, atualizar e deletar tarefas
+- Organizar tarefas por status e prioridade
+- Autenticar usuários via JWT
+- Armazenar logs para auditoria e análise futura
 
 ---
 
-## 🔧 Estrutura de Módulos
+## 🔧 Funcionalidades
 
-### 🔹 Personagens
-- Cadastro e gerenciamento
-- Atributos (STR, DEX, MND, END, LCK)
-- Sistema de níveis e experiência (XP)
-- Vida ( Health ) e Vigor ( Stamina )
-- Associação com inventário, raça e classe
+### 🔹 Autenticação
+- Cadastro e login de usuários
+- JWT com expiração configurável
+- Guardas de rota para proteger endpoints privados
 
-### 🔹 Atributos Padrões
-- **STR (Strength)** – Força física
-- **DEX (Dexterity)** – Destreza e agilidade
-- **MND (Mind)** – Inteligência / mentalidade
-- **END (Endurance)** – Constituição / resistência física
-- **STL (Stealth)** -- Se esconder, andar em silêncio, atacar de surpresa
-- **LCK (Luck)** – Sorte
+### 🔹 Tarefas
+- CRUD completo de tarefas
+- Campos: título, descrição, status (`pendente`, `em progresso`, `concluída`), prioridade (`baixa`, `média`, `alta`), data de vencimento
+- Filtro por status, prioridade ou data
 
-### 🔹 Itens
-- Nome, tipo, raridade e efeitos
-- Slots de equipamento e categorização
-- Regras de peso, empilhamento e buffs mágicos
-- Exemplo:
-```json
-{
-  "name": "Iron Sword",
-  "type": "Weapon",
-  "rarity": "Common",
-  "effects": { "STR": 5 },
-}
-```
-
-### 🔹 Raças (totalmente customizáveis)
-- Nome, descrição, atributos base
-- Bônus condicionais com base na classe
-- Exemplo:
-```json
-{
-  "name": "Forest Elf",
-  "description": "Exemple of a background story for this race",
-  "baseAttributes": { "DEX": 3, "STR": -1 },
-  "bonuses": [
-    {
-      "condition": { "class": "Archer" },
-      "effects": { "DEX": 1, "LCK": 1 , "STL": 2 }
-    }
-  ]
-}
-```
-
-### 🔹 Classes (100% definidas pelo cliente)
-- Nome, atributos iniciais e habilidades únicas
-- Permite qualquer combinação com raças
-- Exemplo:
-```json
-{
-  "name": "Archer",
-  "baseAttributes": { "DEX": 4, "STR": 1 },
-  "abilities": [
-    {
-      "name": "Piercing Shot",
-      "description": "Deals extra damage that ignores armor.",
-      "cooldown": 2,
-      "cost": { "Stamina": 2 }
-    }
-  ]
-}
-```
-
-### 🔹 Inventário
-- Gerenciamento de itens por personagem
-- Equipar, desequipar e usar
-- Restrições de peso ou slots
-
-### 🔹 Habilidades
-- Cadastro de habilidades ativas/passivas
-- Cooldown, custo, descrição de efeito
-- Associação com classe ou personagem
+### 🔹 Categorias
+- Permite agrupar tarefas por categorias (ex: "Faculdade", "Trabalho")
+- CRUD de categorias
 
 ### 🔹 Logs
-- Todas as ações relevantes são salvas no MongoDB
-- Útil para debug, auditoria e controle de mestres
+- Toda ação relevante (criação, atualização, exclusão de tarefas) é salva no MongoDB
+
+---
+
+## 📦 Estrutura de Módulos
+
+- `auth`: Login, registro e autenticação
+- `users`: Gerenciamento de usuários
+- `tasks`: CRUD de tarefas
+- `categories`: CRUD de categorias
+- `logs`: Registro de atividades no MongoDB
+
+---
+
+## 🧪 Exemplo de Objeto de Tarefa
+
+```json
+{
+  "title": "Estudar NestJS",
+  "description": "Estudar injeção de dependência e módulos",
+  "status": "em progresso",
+  "priority": "alta",
+  "dueDate": "2025-06-15T23:59:59.000Z",
+  "categoryId": "c1f9e312"
+}
+```
 
 ---
 
 ## ⚙️ Tecnologias Utilizadas
 
-- **NestJS** como framework principal
-- **PostgreSQL** para dados estruturados
-- **MongoDB** para logs e histórico
-- **Docker** para ambiente padronizado
-- **JWT** para autenticação
-- **Swagger** para documentação interativa
+- **NestJS** – Framework backend principal
+- **PostgreSQL** – Banco relacional para dados estruturados
+- **MongoDB** – Banco NoSQL para logs
+- **TypeORM** – ORM para PostgreSQL
+- **Mongoose** – ODM para MongoDB
+- **JWT** – Autenticação
+- **Docker** – Containerização para facilitar o deploy
 
 ---
 
-## 🔐 Foco Comercial (B2B)
+## 🔐 Segurança
 
-A API será vendida para empresas como uma solução de backend pronta para jogos. Benefícios:
-
-- Redução de custo e tempo de desenvolvimento
-- Flexível e totalmente personalizável
-- Painel de controle futuro (visualizador de personagens, itens, sessões)
-- Licenciamento comercial sob demanda
+- Criptografia de senhas com Bcrypt
+- Autenticação JWT protegendo todas as rotas privadas
+- CORS configurado para integração com aplicações externas
 
 ---
 
-## 📌 Futuras Funcionalidades
+## 🚀 Como Executar
 
-- Módulo de missões
-- Painel para desenvolvedores
+```bash
+# Clonar o projeto
+git clone https://github.com/seuusuario/todo-list-api
+
+# Entrar no diretório
+cd todo-list-api
+
+# Instalar dependências
+npm install
+
+# Rodar o banco via Docker
+docker compose up -d
+
+# Iniciar a API
+npm run start:dev
+```
+
+---
+
+## 📘 Documentação Swagger
+
+Disponível em:
+
+```
+http://localhost:3000/api
+```
 
 ---
 
 ## 📄 Licença
 
-Licença comercial fechada. Disponível para empresas mediante contrato.
+MIT. Uso livre para projetos pessoais e comerciais com atribuição.
